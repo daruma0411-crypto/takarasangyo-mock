@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>カッティングツール | 宝産業株式会社</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #002D5A;
+            --primary-mid: #003d7a;
+            --accent: #FF6B00;
+            --bg-light: #F8FAFC;
+            --white: #ffffff;
+            --text-main: #2d3748;
+            --text-sub: #718096;
+            --border: #e2e8f0;
+            --header-h: 64px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            color: var(--text-main);
+            line-height: 1.8;
+            background: var(--white);
+        }
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+        /* ======== Header ======== */
+        header {
+            background: rgba(255,255,255,0.96);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border);
+            height: var(--header-h);
+        }
+
+        .nav-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: var(--header-h);
+        }
+
+        .logo {
+            font-weight: 900;
+            color: var(--primary);
+            font-size: 1.1rem;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 24px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 0.875rem;
+            position: relative;
+            padding-bottom: 3px;
+            white-space: nowrap;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            left: 0; bottom: 0;
+            width: 0; height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after { width: 100%; }
+        nav a:hover { color: var(--accent); }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        .menu-toggle span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--primary);
+            transition: all 0.3s ease;
+            transform-origin: center;
+        }
+
+        .menu-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .menu-toggle.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+        .menu-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+        /* ======== Hero ======== */
+        .hero {
+            padding-top: var(--header-h);
+            height: 52vh;
+            min-height: 340px;
+            background:
+                linear-gradient(135deg, rgba(0,45,90,0.88) 0%, rgba(0,61,122,0.82) 100%),
+                url('https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=1600&q=80')
+                center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 60px;
+            background: linear-gradient(to bottom, transparent, var(--white));
+        }
+
+        .hero-content { position: relative; z-index: 1; }
+
+        .hero-eyebrow {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            padding: 4px 16px;
+            border-radius: 20px;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+        }
+
+        .hero h1 {
+            font-size: clamp(1.8rem, 4vw, 3rem);
+            font-weight: 900;
+            margin-bottom: 12px;
+            line-height: 1.3;
+        }
+
+        .hero p {
+            font-size: 1rem;
+            opacity: 0.85;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        /* ======== Breadcrumb ======== */
+        .breadcrumb {
+            background: var(--bg-light);
+            border-bottom: 1px solid var(--border);
+            padding: 12px 0;
+            font-size: 0.8rem;
+            color: var(--text-sub);
+        }
+
+        .breadcrumb a { color: var(--primary); text-decoration: none; font-weight: 700; }
+        .breadcrumb a:hover { text-decoration: underline; }
+        .breadcrumb span { margin: 0 8px; color: var(--text-sub); }
+
+        /* ======== Sidebar layout ======== */
+        .page-body {
+            display: grid;
+            grid-template-columns: 220px 1fr;
+            gap: 48px;
+            padding: 60px 0 100px;
+            align-items: start;
+        }
+
+        /* ======== Sidebar ======== */
+        .sidebar { position: sticky; top: calc(var(--header-h) + 24px); }
+
+        .sidebar-title {
+            font-size: 0.75rem;
+            font-weight: 900;
+            color: var(--text-sub);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            padding-left: 12px;
+        }
+
+        .sidebar-nav { list-style: none; }
+
+        .sidebar-nav li { border-bottom: 1px solid var(--border); }
+        .sidebar-nav li:first-child { border-top: 1px solid var(--border); }
+
+        .sidebar-nav a {
+            display: block;
+            padding: 12px 12px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-main);
+            text-decoration: none;
+            transition: all 0.2s ease;
+            border-left: 3px solid transparent;
+        }
+
+        .sidebar-nav a:hover,
+        .sidebar-nav a.active {
+            color: var(--primary);
+            background: var(--bg-light);
+            border-left-color: var(--accent);
+            font-weight: 700;
+        }
+
+        .sidebar-nav a.active { color: var(--accent); }
+
+        .sidebar-cta {
+            margin-top: 24px;
+            background: var(--primary);
+            color: white;
+            padding: 20px 16px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .sidebar-cta p { font-size: 0.8rem; opacity: 0.85; margin-bottom: 12px; }
+
+        .sidebar-cta a {
+            display: block;
+            background: var(--accent);
+            color: white;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.875rem;
+            padding: 10px 16px;
+            border-radius: 4px;
+            transition: background 0.2s ease;
+        }
+
+        .sidebar-cta a:hover { background: #ff7a1a; }
+
+        /* ======== Main Content ======== */
+        .main-content {}
+
+        .section-intro {
+            margin-bottom: 48px;
+        }
+
+        .section-intro h2 {
+            font-size: 1.75rem;
+            font-weight: 900;
+            color: var(--primary);
+            margin-bottom: 12px;
+        }
+
+        .section-intro p {
+            font-size: 1rem;
+            color: var(--text-sub);
+            line-height: 1.8;
+            max-width: 680px;
+        }
+
+        /* ======== Product Cards ======== */
+        .product-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 32px;
+        }
+
+        .product-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+        }
+
+        .card-img {
+            overflow: hidden;
+            position: relative;
+            background: linear-gradient(135deg, #e2e8f0, #cbd5e0);
+        }
+
+        .card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+            display: block;
+        }
+
+        .product-card:hover .card-img img { transform: scale(1.06); }
+
+        .card-body { padding: 28px 28px 24px; }
+
+        .card-number {
+            font-size: 0.75rem;
+            font-weight: 900;
+            color: var(--accent);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .card-body h3 {
+            font-size: 1.35rem;
+            font-weight: 900;
+            color: var(--primary);
+            margin-bottom: 12px;
+            line-height: 1.3;
+        }
+
+        .card-body p {
+            font-size: 0.9375rem;
+            color: var(--text-main);
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        /* タグ群 */
+        .tag-group { margin-bottom: 20px; }
+
+        .tag-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--text-sub);
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+
+        .tag {
+            display: inline-block;
+            background: var(--bg-light);
+            border: 1px solid var(--border);
+            color: var(--primary);
+            font-size: 0.78rem;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 20px;
+        }
+
+        .tag.accent {
+            background: rgba(255,107,0,0.08);
+            border-color: rgba(255,107,0,0.3);
+            color: var(--accent);
+        }
+
+        .card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-top: 1px solid var(--border);
+            padding-top: 18px;
+            margin-top: 4px;
+            gap: 12px;
+        }
+
+        .contact-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.875rem;
+            padding: 10px 20px;
+            border-radius: 4px;
+            transition: background 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .contact-link:hover { background: var(--primary-mid); }
+
+        .card-note {
+            font-size: 0.8rem;
+            color: var(--text-sub);
+            line-height: 1.5;
+        }
+
+        /* ======== CTA Banner ======== */
+        .cta-banner {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-mid) 100%);
+            color: white;
+            border-radius: 12px;
+            padding: 40px 40px;
+            text-align: center;
+            margin-top: 56px;
+        }
+
+        .cta-banner h3 {
+            font-size: 1.5rem;
+            font-weight: 900;
+            margin-bottom: 10px;
+        }
+
+        .cta-banner p {
+            font-size: 0.9375rem;
+            opacity: 0.85;
+            margin-bottom: 24px;
+        }
+
+        .cta-banner .btn-accent {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            text-decoration: none;
+            font-weight: 900;
+            font-size: 1rem;
+            padding: 14px 40px;
+            border-radius: 4px;
+            transition: background 0.2s ease, transform 0.2s ease;
+        }
+
+        .cta-banner .btn-accent:hover {
+            background: #ff7a1a;
+            transform: translateY(-2px);
+        }
+
+        /* ======== Other Products ======== */
+        .other-products {
+            background: var(--bg-light);
+            padding: 72px 0;
+            border-top: 1px solid var(--border);
+        }
+
+        .other-title {
+            text-align: center;
+            margin-bottom: 36px;
+        }
+
+        .other-title span {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--accent);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+
+        .other-title h2 {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--primary);
+        }
+
+        .other-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 16px;
+        }
+
+        .other-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px 16px;
+            text-align: center;
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 0.875rem;
+            transition: all 0.2s ease;
+            border-top: 3px solid transparent;
+            line-height: 1.5;
+        }
+
+        .other-card:hover {
+            border-top-color: var(--accent);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+            transform: translateY(-3px);
+        }
+
+        .other-card .icon { font-size: 1.75rem; display: block; margin-bottom: 8px; }
+
+        /* ======== Footer ======== */
+        footer {
+            background: var(--primary);
+            color: rgba(255,255,255,0.8);
+            padding: 48px 0 24px;
+        }
+
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 32px;
+            margin-bottom: 36px;
+        }
+
+        .footer-logo {
+            font-weight: 900;
+            font-size: 1.1rem;
+            color: white;
+            margin-bottom: 8px;
+        }
+
+        .footer-info { font-size: 0.85rem; line-height: 1.9; }
+
+        .footer-links { list-style: none; }
+        .footer-links li { margin-bottom: 8px; }
+        .footer-links a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: color 0.2s;
+        }
+        .footer-links a:hover { color: white; }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.15);
+            padding-top: 20px;
+            text-align: center;
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.45);
+        }
+
+        /* ======== Fade-in animation ======== */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.55s ease, transform 0.55s ease;
+        }
+
+        .fade-in.visible { opacity: 1; transform: none; }
+
+        /* ======== Responsive ======== */
+        @media (max-width: 900px) {
+            .page-body { grid-template-columns: 1fr; gap: 32px; }
+            .sidebar { position: static; }
+            .sidebar-nav { display: grid; grid-template-columns: repeat(2, 1fr); }
+            .sidebar-nav li { border-top: none; }
+            .sidebar-nav li:first-child { border-top: none; }
+            .product-card { grid-template-columns: 1fr; }
+            .card-img { height: 220px; }
+            .other-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+
+        @media (max-width: 768px) {
+            :root { --header-h: 56px; }
+
+            .menu-toggle { display: flex; }
+
+            nav {
+                display: none;
+                position: fixed;
+                top: var(--header-h);
+                left: 0; right: 0;
+                background: rgba(255,255,255,0.98);
+                border-bottom: 1px solid var(--border);
+                padding: 16px 24px 24px;
+                box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+            }
+
+            nav.mobile-open { display: block; }
+            nav ul { flex-direction: column; gap: 0; }
+            nav ul li { border-bottom: 1px solid var(--border); }
+            nav a { display: block; padding: 14px 0; font-size: 1rem; }
+            nav a::after { display: none; }
+
+            .hero { height: 50vh; min-height: 300px; }
+
+            .card-footer { flex-direction: column; align-items: flex-start; }
+            .contact-link { width: 100%; justify-content: center; }
+
+            .cta-banner { padding: 28px 20px; }
+            .cta-banner h3 { font-size: 1.25rem; }
+
+            .sidebar-nav { grid-template-columns: 1fr; }
+            .other-grid { grid-template-columns: repeat(2, 1fr); }
+
+            .footer-inner { flex-direction: column; gap: 24px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ===== Header ===== -->
+<header>
+    <div class="container nav-inner">
+        <a href="宝産業株式会社_improved.html" class="logo">宝産業株式会社</a>
+        <button class="menu-toggle" id="menuToggle" aria-label="メニューを開く">
+            <span></span><span></span><span></span>
+        </button>
+        <nav id="mainNav">
+            <ul>
+                <li><a href="宝産業株式会社_improved.html">トップ</a></li>
+                <li><a href="宝産業_製品拠点.html">製品情報</a></li>
+                <li><a href="宝産業_カッティングツール.html" class="active">カッティングツール</a></li>
+                <li><a href="宝産業_製品拠点.html#location">拠点紹介</a></li>
+                <li><a href="宝産業_会社詳細.html">会社情報</a></li>
+                <li><a href="宝産業株式会社_improved.html#contact">お問い合わせ</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<!-- ===== Hero ===== -->
+<section class="hero">
+    <div class="hero-content">
+        <span class="hero-eyebrow">Products</span>
+        <h1>カッティングツール</h1>
+        <p>高精度・高能率を追求する切削工具から保持具まで、<br>製造現場のあらゆるニーズに対応します。</p>
+    </div>
+</section>
+
+<!-- ===== Breadcrumb ===== -->
+<div class="breadcrumb">
+    <div class="container">
+        <a href="宝産業株式会社_improved.html">ホーム</a>
+        <span>›</span>
+        <a href="宝産業株式会社_improved.html#products">製品情報</a>
+        <span>›</span>
+        カッティングツール
+    </div>
+</div>
+
+<!-- ===== Page Body ===== -->
+<div class="container">
+    <div class="page-body">
+
+        <!-- ===== Sidebar ===== -->
+        <aside class="sidebar">
+            <p class="sidebar-title">製品カテゴリ</p>
+            <ul class="sidebar-nav">
+                <li><a href="#" class="active">カッティングツール</a></li>
+                <li><a href="#">マテリアルズ</a></li>
+                <li><a href="#">レーザー関連</a></li>
+                <li><a href="#">生産関連機器</a></li>
+                <li><a href="#">水処理関連</a></li>
+                <li><a href="#">環境・衛生・リサイクル</a></li>
+            </ul>
+            <div class="sidebar-cta">
+                <p>製品・技術についてのご相談はお気軽に</p>
+                <a href="宝産業株式会社_improved.html#contact">📩 お問い合わせ</a>
+            </div>
+        </aside>
+
+        <!-- ===== Main ===== -->
+        <main class="main-content">
+            <div class="section-intro fade-in">
+                <h2>取扱製品一覧</h2>
+                <p>住友電気工業をはじめとする国内外の優良メーカーと連携し、超硬工具から特殊ハイス工具まで幅広いラインナップをご提供します。加工現場の課題に合わせた最適な工具選定をご提案いたします。</p>
+            </div>
+
+            <div class="product-grid">
+
+                <!-- 01 超硬工具 -->
+                <div class="product-card fade-in">
+                    <div class="card-img">
+                        <img
+                            src="https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=600&q=80"
+                            alt="超硬工具"
+                            loading="lazy"
+                        >
+                    </div>
+                    <div class="card-body">
+                        <p class="card-number">01 — Carbide Tools</p>
+                        <h3>超硬工具</h3>
+                        <p>ダイヤモンドに次ぐ硬さを有する超硬合金で造られる工具で、機械加工の高速・高能率・高精度化のニーズに対応します。工作機械に取り付けられ、切削加工などの分野で重要な役割を果たしています。</p>
+                        <div class="tag-group">
+                            <span class="tag-label">主な用途</span>
+                            <div class="tags">
+                                <span class="tag">自動車部品</span>
+                                <span class="tag">金型加工</span>
+                                <span class="tag">航空機部品</span>
+                                <span class="tag">高硬度材</span>
+                            </div>
+                        </div>
+                        <div class="tag-group">
+                            <span class="tag-label">代表メーカー</span>
+                            <div class="tags">
+                                <span class="tag accent">住友電工ハードメタル</span>
+                                <span class="tag accent">三菱マテリアル</span>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <a href="宝産業株式会社_improved.html#contact" class="contact-link">
+                                📩 この製品を問い合わせる
+                            </a>
+                            <p class="card-note">サンプル貸出・<br>加工テストご相談可</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 02 ツーリングシステム -->
+                <div class="product-card fade-in">
+                    <div class="card-img">
+                        <img
+                            src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=600&q=80"
+                            alt="ツーリングシステム"
+                            loading="lazy"
+                        >
+                    </div>
+                    <div class="card-body">
+                        <p class="card-number">02 — Tooling System</p>
+                        <h3>ツーリングシステム</h3>
+                        <p>切削工具を工作機械に取り付けるための精密保持具です。自動車部品加工、金型加工をはじめ、あらゆる高精度加工に必要不可欠なアイテムです。</p>
+                        <div class="tag-group">
+                            <span class="tag-label">主な用途</span>
+                            <div class="tags">
+                                <span class="tag">マシニングセンタ</span>
+                                <span class="tag">NC旋盤</span>
+                                <span class="tag">金型加工</span>
+                                <span class="tag">精密部品加工</span>
+                            </div>
+                        </div>
+                        <div class="tag-group">
+                            <span class="tag-label">代表メーカー</span>
+                            <div class="tags">
+                                <span class="tag accent">BIG KAISER</span>
+                                <span class="tag accent">NIKKEN</span>
+                                <span class="tag accent">MST</span>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <a href="宝産業株式会社_improved.html#contact" class="contact-link">
+                                📩 この製品を問い合わせる
+                            </a>
+                            <p class="card-note">機種・規格に合わせた<br>選定サポートあり</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 03 歯切工具 -->
+                <div class="product-card fade-in">
+                    <div class="card-img">
+                        <img
+                            src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=600&q=80"
+                            alt="歯切工具"
+                            loading="lazy"
+                        >
+                    </div>
+                    <div class="card-body">
+                        <p class="card-number">03 — Gear Cutting Tools</p>
+                        <h3>歯切工具</h3>
+                        <p>高精度歯車を造るための工具です。カスタマイズした歯切工具は、歯車生産における高能率化・高精度化に貢献します。再研磨・再コートにも対応できます。</p>
+                        <div class="tag-group">
+                            <span class="tag-label">主な用途</span>
+                            <div class="tags">
+                                <span class="tag">歯車製造</span>
+                                <span class="tag">減速機</span>
+                                <span class="tag">産業機械</span>
+                                <span class="tag">自動車トランスミッション</span>
+                            </div>
+                        </div>
+                        <div class="tag-group">
+                            <span class="tag-label">対応サービス</span>
+                            <div class="tags">
+                                <span class="tag accent">カスタム製作</span>
+                                <span class="tag accent">再研磨対応</span>
+                                <span class="tag accent">再コート対応</span>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <a href="宝産業株式会社_improved.html#contact" class="contact-link">
+                                📩 この製品を問い合わせる
+                            </a>
+                            <p class="card-note">カスタム形状・<br>特殊モジュールご相談可</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 04 特型超硬工具・ロー付け工具 -->
+                <div class="product-card fade-in">
+                    <div class="card-img">
+                        <img
+                            src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=600&q=80"
+                            alt="特型超硬工具・ロー付け工具"
+                            loading="lazy"
+                        >
+                    </div>
+                    <div class="card-body">
+                        <p class="card-number">04 — Special Carbide & Brazed Tools</p>
+                        <h3>特型超硬工具・ロー付け工具</h3>
+                        <p>特殊サイズ・段付等の複合形状ドリル・リーマなど多彩なカッターを使用することで、製造工程の合理化・コスト削減に貢献します。標準品では対応できない形状にも対応可能です。</p>
+                        <div class="tag-group">
+                            <span class="tag-label">主な用途</span>
+                            <div class="tags">
+                                <span class="tag">複合形状加工</span>
+                                <span class="tag">工程集約</span>
+                                <span class="tag">難削材</span>
+                                <span class="tag">特殊穴加工</span>
+                            </div>
+                        </div>
+                        <div class="tag-group">
+                            <span class="tag-label">特長</span>
+                            <div class="tags">
+                                <span class="tag accent">図面対応・特注製作</span>
+                                <span class="tag accent">工程合理化提案</span>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <a href="宝産業株式会社_improved.html#contact" class="contact-link">
+                                📩 この製品を問い合わせる
+                            </a>
+                            <p class="card-note">図面・サンプルを元に<br>見積対応いたします</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 05 研削砥石 -->
+                <div class="product-card fade-in">
+                    <div class="card-img">
+                        <img
+                            src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&q=80"
+                            alt="研削砥石"
+                            loading="lazy"
+                        >
+                    </div>
+                    <div class="card-body">
+                        <p class="card-number">05 — Grinding Wheels</p>
+                        <h3>研削砥石</h3>
+                        <p>ダイヤモンド・CBN砥石は電子部品・半導体・輸送機器・機械・石材・建設など幅広い分野で使用されています。従来の砥石より加工時間の短縮による生産性の向上・コスト低減を実現する特殊セラミック砥石も取り揃えています。</p>
+                        <div class="tag-group">
+                            <span class="tag-label">主な用途</span>
+                            <div class="tags">
+                                <span class="tag">電子部品</span>
+                                <span class="tag">半導体</span>
+                                <span class="tag">輸送機器</span>
+                                <span class="tag">石材・建設</span>
+                            </div>
+                        </div>
+                        <div class="tag-group">
+                            <span class="tag-label">砥石タイプ</span>
+                            <div class="tags">
+                                <span class="tag accent">ダイヤモンド砥石</span>
+                                <span class="tag accent">CBN砥石</span>
+                                <span class="tag accent">特殊セラミック砥石</span>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <a href="宝産業株式会社_improved.html#contact" class="contact-link">
+                                📩 この製品を問い合わせる
+                            </a>
+                            <p class="card-note">砥粒・結合剤の<br>カスタム対応可</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 06 特殊ハイス工具 -->
+                <div class="product-card fade-in">
+                    <div class="card-img">
+                        <img
+                            src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&q=80"
+                            alt="特殊ハイス工具"
+                            loading="lazy"
+                        >
+                    </div>
+                    <div class="card-body">
+                        <p class="card-number">06 — Special HSS Tools</p>
+                        <h3>特殊ハイス工具</h3>
+                        <p>優れた靱性があり、鋭利な刃先で切れ味が良く、鋼・アルミ以外にも樹脂・プラスチックの切削加工にも適しています。超硬工具より加工性に優れ、任意の刃先形状にできることから、低速域での総型カッターにも使用されています。</p>
+                        <div class="tag-group">
+                            <span class="tag-label">主な用途</span>
+                            <div class="tags">
+                                <span class="tag">鋼・アルミ加工</span>
+                                <span class="tag">樹脂・プラスチック</span>
+                                <span class="tag">総型加工</span>
+                                <span class="tag">低速切削</span>
+                            </div>
+                        </div>
+                        <div class="tag-group">
+                            <span class="tag-label">特長</span>
+                            <div class="tags">
+                                <span class="tag accent">任意刃先形状対応</span>
+                                <span class="tag accent">靱性が高く欠けにくい</span>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <a href="宝産業株式会社_improved.html#contact" class="contact-link">
+                                📩 この製品を問い合わせる
+                            </a>
+                            <p class="card-note">形状・材種の<br>特注相談歓迎</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div><!-- /.product-grid -->
+
+            <!-- ===== CTA Banner ===== -->
+            <div class="cta-banner fade-in">
+                <h3>工具選定のご相談、お気軽にどうぞ</h3>
+                <p>加工材料・加工形状・課題をお聞かせいただければ、最適な工具をご提案します。<br>サンプル貸出・現場訪問にも対応いたします。</p>
+                <a href="宝産業株式会社_improved.html#contact" class="btn-accent">お問い合わせフォームへ</a>
+            </div>
+
+        </main>
+    </div><!-- /.page-body -->
+</div><!-- /.container -->
+
+<!-- ===== Other Products ===== -->
+<section class="other-products">
+    <div class="container">
+        <div class="other-title">
+            <span>Other Products</span>
+            <h2>その他の取扱製品</h2>
+        </div>
+        <div class="other-grid">
+            <a href="#" class="other-card">
+                <span class="icon">🔩</span>マテリアルズ
+            </a>
+            <a href="#" class="other-card">
+                <span class="icon">🔆</span>レーザー関連
+            </a>
+            <a href="#" class="other-card">
+                <span class="icon">⚙️</span>生産関連機器
+            </a>
+            <a href="#" class="other-card">
+                <span class="icon">💧</span>水処理関連
+            </a>
+            <a href="#" class="other-card">
+                <span class="icon">♻️</span>環境・衛生・<br>リサイクル
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ===== Footer ===== -->
+<footer>
+    <div class="container">
+        <div class="footer-inner">
+            <div>
+                <div class="footer-logo">宝産業株式会社</div>
+                <div class="footer-info">
+                    〒530-0044 大阪市北区東天満2丁目6番5号<br>
+                    I・S南森町ビル5F<br>
+                    TEL: 06-XXXX-XXXX<br>
+                    受付：月〜金 9:00〜18:00
+                </div>
+            </div>
+            <div>
+                <ul class="footer-links">
+                    <li><a href="宝産業株式会社_improved.html">トップページ</a></li>
+                    <li><a href="宝産業_製品拠点.html">製品情報</a></li>
+                    <li><a href="宝産業_製品拠点.html#location">拠点紹介</a></li>
+                    <li><a href="宝産業_会社詳細.html">会社情報</a></li>
+                    <li><a href="宝産業株式会社_improved.html#contact">お問い合わせ</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 TAKARA-SANGYO CO., LTD. All Rights Reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<!-- ===== JavaScript ===== -->
+<script>
+    // ハンバーガーメニュー
+    const toggle = document.getElementById('menuToggle');
+    const nav    = document.getElementById('mainNav');
+
+    toggle.addEventListener('click', () => {
+        const isOpen = nav.classList.toggle('mobile-open');
+        toggle.classList.toggle('open', isOpen);
+        toggle.setAttribute('aria-label', isOpen ? 'メニューを閉じる' : 'メニューを開く');
+    });
+
+    nav.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', () => {
+            nav.classList.remove('mobile-open');
+            toggle.classList.remove('open');
+        });
+    });
+
+    // スクロールフェードイン（カードを順番に）
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, i) => {
+            if (entry.isIntersecting) {
+                setTimeout(() => {
+                    entry.target.classList.add('visible');
+                }, i * 100);
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1305 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>宝産業株式会社 | 製造業トータルサポート商社</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #003366;
+            --secondary-color: #FF6600;
+            --text-color: #333;
+            --bg-light: #f8f9fa;
+            --white: #ffffff;
+            --gray: #666;
+            --light-gray: #e9ecef;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            color: var(--text-color);
+            line-height: 1.7;
+            font-size: 16px;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: opacity 0.3s ease;
+        }
+
+        a:hover {
+            opacity: 0.7;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ========== Header ========== */
+        header {
+            background: var(--white);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--primary-color);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 32px;
+        }
+
+        nav a {
+            font-weight: 500;
+            color: var(--text-color);
+            white-space: nowrap;
+        }
+
+        nav a:hover {
+            color: var(--secondary-color);
+            text-decoration: underline;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--primary-color);
+        }
+
+        /* ========== Hero ========== */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #004080 100%);
+            color: var(--white);
+            padding: 120px 24px 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.18;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 24px;
+            line-height: 1.3;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            margin-bottom: 16px;
+            font-weight: 500;
+        }
+
+        .hero-description {
+            font-size: 1.125rem;
+            margin-bottom: 40px;
+            line-height: 1.8;
+            opacity: 0.95;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 16px 40px;
+            border-radius: 4px;
+            font-weight: 700;
+            font-size: 1.125rem;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: var(--secondary-color);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: #ff7a1a;
+            opacity: 1;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: var(--white);
+            color: var(--primary-color);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-light);
+            opacity: 1;
+            transform: translateY(-2px);
+        }
+
+        /* ========== Section Common ========== */
+        section {
+            padding: 80px 24px;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 56px;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--primary-color);
+            margin-bottom: 16px;
+        }
+
+        .section-title p {
+            font-size: 1.125rem;
+            color: var(--gray);
+        }
+
+        /* ========== About ========== */
+        .about {
+            background: var(--bg-light);
+        }
+
+        .about-content {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .about-lead {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+
+        .about-description {
+            font-size: 1.125rem;
+            line-height: 1.9;
+            margin-bottom: 24px;
+        }
+
+        .about-features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 48px;
+        }
+
+        .feature-card {
+            background: var(--white);
+            padding: 32px 24px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--primary-color);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 900;
+            margin: 0 auto 16px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 12px;
+            color: var(--primary-color);
+        }
+
+        /* ========== Products ========== */
+        .products {
+            background: var(--white);
+        }
+
+        .product-categories {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .product-card {
+            background: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 240px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.05);
+        }
+
+        .product-content {
+            padding: 32px 24px;
+        }
+
+        .product-card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 16px;
+        }
+
+        .product-card p {
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .product-list {
+            list-style: none;
+            margin-bottom: 24px;
+        }
+
+        .product-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid var(--light-gray);
+            font-size: 0.9375rem;
+        }
+
+        .product-list li:last-child {
+            border-bottom: none;
+        }
+
+        .product-list li::before {
+            content: '✓';
+            color: var(--secondary-color);
+            font-weight: 700;
+            margin-right: 8px;
+        }
+
+        .btn-small {
+            padding: 12px 24px;
+            font-size: 1rem;
+            display: inline-block;
+        }
+
+        /* ========== Case Studies ========== */
+        .case-studies {
+            background: var(--bg-light);
+        }
+
+        .cases-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .case-card {
+            background: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .case-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+        }
+
+        /* Before/after photo layout */
+        .case-images {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2px;
+            height: 180px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .case-img-wrap {
+            overflow: hidden;
+            position: relative;
+        }
+
+        .case-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .case-img-label {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            background: rgba(0,0,0,0.55);
+            color: #fff;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 3px;
+        }
+
+        .case-content {
+            padding: 24px;
+        }
+
+        .case-category {
+            display: inline-block;
+            background: var(--primary-color);
+            color: var(--white);
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 0.875rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .case-card h3 {
+            font-size: 1.125rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--primary-color);
+        }
+
+        .case-description {
+            font-size: 0.9375rem;
+            line-height: 1.7;
+            color: var(--gray);
+        }
+
+        /* ========== Resources ========== */
+        .resources {
+            background: var(--white);
+        }
+
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .resource-card {
+            background: var(--bg-light);
+            padding: 32px 24px;
+            border-radius: 8px;
+            text-align: center;
+            transition: background 0.3s ease, border-color 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .resource-card:hover {
+            background: var(--white);
+            border-color: var(--secondary-color);
+        }
+
+        .resource-icon {
+            font-size: 3rem;
+            margin-bottom: 16px;
+        }
+
+        .resource-card h3 {
+            font-size: 1.125rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--primary-color);
+        }
+
+        .resource-card p {
+            font-size: 0.875rem;
+            color: var(--gray);
+            margin-bottom: 20px;
+        }
+
+        .download-link {
+            color: var(--secondary-color);
+            font-weight: 700;
+            font-size: 0.9375rem;
+            display: inline-block;
+            border: 2px solid var(--secondary-color);
+            padding: 8px 20px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .download-link:hover {
+            background: var(--secondary-color);
+            color: var(--white);
+            opacity: 1;
+        }
+
+        /* ========== Company Section ========== */
+        .company {
+            background: var(--bg-light);
+        }
+
+        .company-inner {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .company-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .company-table tr {
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .company-table tr:last-child {
+            border-bottom: none;
+        }
+
+        .company-table th {
+            background: var(--primary-color);
+            color: var(--white);
+            padding: 16px 24px;
+            text-align: left;
+            font-weight: 700;
+            width: 200px;
+            vertical-align: top;
+        }
+
+        .company-table td {
+            padding: 16px 24px;
+            line-height: 1.8;
+        }
+
+        /* ========== Contact ========== */
+        .contact {
+            background: var(--primary-color);
+            color: var(--white);
+            text-align: center;
+        }
+
+        .contact .section-title h2,
+        .contact .section-title p {
+            color: var(--white);
+        }
+
+        .contact-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .contact-methods {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 32px;
+            margin-bottom: 48px;
+        }
+
+        .contact-method {
+            background: rgba(255,255,255,0.1);
+            padding: 40px 32px;
+            border-radius: 8px;
+            backdrop-filter: blur(10px);
+        }
+
+        .contact-method h3 {
+            font-size: 1.5rem;
+            margin-bottom: 16px;
+            font-weight: 700;
+        }
+
+        .contact-method p {
+            font-size: 1.125rem;
+            margin-bottom: 24px;
+        }
+
+        .contact-info {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--secondary-color);
+        }
+
+        /* ======= Contact Form ======= */
+        .contact-form-section {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 48px;
+            text-align: left;
+            margin-top: 0;
+        }
+
+        .contact-form-section h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 32px;
+            text-align: center;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            font-weight: 700;
+            font-size: 0.9375rem;
+            color: var(--text-color);
+        }
+
+        .form-group label .required {
+            color: var(--secondary-color);
+            margin-left: 4px;
+            font-size: 0.8rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: 12px 16px;
+            border: 2px solid var(--light-gray);
+            border-radius: 4px;
+            font-size: 1rem;
+            font-family: 'Noto Sans JP', sans-serif;
+            color: var(--text-color);
+            transition: border-color 0.3s ease;
+            outline: none;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--primary-color);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-submit {
+            text-align: center;
+            margin-top: 24px;
+        }
+
+        .form-submit .btn-primary {
+            font-size: 1.125rem;
+            padding: 16px 60px;
+            border: none;
+        }
+
+        /* form sent message */
+        .form-sent {
+            display: none;
+            text-align: center;
+            padding: 32px;
+            color: var(--primary-color);
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+
+        /* ========== Footer ========== */
+        footer {
+            background: #001a33;
+            color: var(--white);
+            padding: 56px 24px 24px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 48px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h4 {
+            font-size: 1.125rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+            color: var(--secondary-color);
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-section a {
+            color: rgba(255,255,255,0.8);
+            font-size: 0.9375rem;
+        }
+
+        .footer-section a:hover {
+            color: var(--white);
+            text-decoration: underline;
+        }
+
+        .footer-company p {
+            margin-bottom: 12px;
+            color: rgba(255,255,255,0.8);
+            font-size: 0.9375rem;
+            line-height: 1.8;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 24px;
+            text-align: center;
+            color: rgba(255,255,255,0.6);
+            font-size: 0.875rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* ========== Responsive ========== */
+        @media (max-width: 768px) {
+            .header-inner { padding: 12px 16px; }
+            .menu-toggle { display: block; }
+
+            nav {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--white);
+                box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+                display: none;
+            }
+            nav.active { display: block; }
+            nav ul { flex-direction: column; gap: 0; }
+            nav li { border-bottom: 1px solid var(--light-gray); }
+            nav a { display: block; padding: 16px 24px; }
+
+            .hero { padding: 80px 16px 56px; }
+            .hero h1 { font-size: 2rem; }
+            .hero-subtitle { font-size: 1.125rem; }
+            .hero-description { font-size: 1rem; }
+            .cta-buttons { flex-direction: column; }
+            .btn { width: 100%; text-align: center; }
+
+            section { padding: 56px 16px; }
+            .section-title h2 { font-size: 1.875rem; }
+
+            .about-features,
+            .product-categories,
+            .cases-grid,
+            .resources-grid { grid-template-columns: 1fr; }
+
+            .contact-methods { grid-template-columns: 1fr; }
+
+            .contact-form-section { padding: 24px 16px; }
+            .form-grid { grid-template-columns: 1fr; }
+            .form-group.full-width { grid-column: 1; }
+
+            .company-table th { width: 120px; font-size: 0.875rem; padding: 12px 16px; }
+            .company-table td { padding: 12px 16px; }
+
+            .footer-content { grid-template-columns: 1fr; gap: 32px; }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .product-categories, .cases-grid { grid-template-columns: repeat(2, 1fr); }
+            .resources-grid { grid-template-columns: repeat(2, 1fr); }
+            .footer-content { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== Header ===== -->
+    <header>
+        <div class="header-inner">
+            <a href="宝産業株式会社_improved.html" class="logo" style="text-decoration:none; color:var(--primary-color);">宝産業株式会社</a>
+            <button class="menu-toggle" id="menuToggle" aria-label="メニューを開く">☰</button>
+            <nav id="mainNav">
+                <ul>
+                    <li><a href="#about">会社について</a></li>
+                    <li><a href="宝産業_製品拠点.html">製品情報</a></li>
+                    <li><a href="宝産業_カッティングツール.html">カッティングツール</a></li>
+                    <li><a href="宝産業_製品拠点.html#location">拠点紹介</a></li>
+                    <li><a href="宝産業_会社詳細.html">会社情報</a></li>
+                    <li><a href="#contact">お問い合わせ</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ===== Hero ===== -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>製造業トータルサポート商社</h1>
+            <p class="hero-subtitle">カッティングツール・レーザー・水処理の専門知識で、<br>お客様の製造現場を全工程で支援します</p>
+            <p class="hero-description">創業以来培ってきた技術力と豊富な製品ラインナップで、製造業の生産性向上と品質改善に貢献。現場の課題に寄り添い、最適なソリューションをご提案いたします。</p>
+            <div class="cta-buttons">
+                <a href="#contact" class="btn btn-primary">お問い合わせ</a>
+                <a href="#resources" class="btn btn-secondary">技術資料ダウンロード</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== About ===== -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>宝産業について</h2>
+                <p>Manufacturing Total Support Partner</p>
+            </div>
+            <div class="about-content">
+                <p class="about-lead">カッティングツール、レーザー関連、水処理関連の3分野で<br>製造業の課題解決をワンストップでサポート</p>
+                <p class="about-description">私たちは、単なる製品供給業者ではありません。長年の経験で培った技術知識と現場理解をもとに、お客様の生産工程全体を見渡し、最適な製品とサービスをご提案します。切削加工から表面処理、環境対策まで、製造業に関わるあらゆる工程で信頼されるパートナーとして、お客様の成長に貢献し続けます。</p>
+                <div class="about-features">
+                    <div class="feature-card">
+                        <div class="feature-icon">01</div>
+                        <h3>豊富な製品ラインナップ</h3>
+                        <p>国内外の優良メーカーと提携し、幅広い製品を取り揃えています</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">02</div>
+                        <h3>専門技術者による提案</h3>
+                        <p>各分野の専門知識を持つスタッフが最適なソリューションを提供</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">03</div>
+                        <h3>迅速な対応力</h3>
+                        <p>緊急の納品や技術相談にも柔軟に対応いたします</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== Products ===== -->
+    <section class="products" id="products">
+        <div class="container">
+            <div class="section-title">
+                <h2>製品情報</h2>
+                <p>3つの専門分野で製造現場をサポート</p>
+            </div>
+            <div class="product-categories">
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=800&q=80" alt="カッティングツール" loading="lazy">
+                    </div>
+                    <div class="product-content">
+                        <h3>カッティングツール</h3>
+                        <p>高精度な切削加工を実現する、各種カッティングツールを取り揃えています。</p>
+                        <ul class="product-list">
+                            <li>エンドミル各種</li>
+                            <li>ドリル・リーマ</li>
+                            <li>タップ・ダイス</li>
+                            <li>バイト・チップ</li>
+                            <li>研削砥石</li>
+                        </ul>
+                        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                            <a href="宝産業_カッティングツール.html" class="btn btn-primary btn-small">詳細ページへ</a>
+                            <a href="#contact" class="btn btn-secondary btn-small">お問い合わせ</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80" alt="レーザー関連製品" loading="lazy">
+                    </div>
+                    <div class="product-content">
+                        <h3>レーザー関連</h3>
+                        <p>レーザー加工・マーキングに必要な機器と消耗品をトータルサポート。</p>
+                        <ul class="product-list">
+                            <li>レーザーマーカー</li>
+                            <li>レーザー加工機</li>
+                            <li>光学部品</li>
+                            <li>消耗品・メンテナンス</li>
+                            <li>安全保護具</li>
+                        </ul>
+                        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                            <a href="宝産業_製品拠点.html#products" class="btn btn-primary btn-small">詳細ページへ</a>
+                            <a href="#contact" class="btn btn-secondary btn-small">お問い合わせ</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80" alt="水処理関連製品" loading="lazy">
+                    </div>
+                    <div class="product-content">
+                        <h3>水処理関連</h3>
+                        <p>工業用水処理から環境対策まで、幅広いニーズに対応します。</p>
+                        <ul class="product-list">
+                            <li>浄水装置</li>
+                            <li>排水処理設備</li>
+                            <li>水質測定機器</li>
+                            <li>薬品・フィルター</li>
+                            <li>メンテナンスサービス</li>
+                        </ul>
+                        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                            <a href="宝産業_製品拠点.html#products" class="btn btn-primary btn-small">詳細ページへ</a>
+                            <a href="#contact" class="btn btn-secondary btn-small">お問い合わせ</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== Case Studies ===== -->
+    <section class="case-studies" id="cases">
+        <div class="container">
+            <div class="section-title">
+                <h2>導入事例</h2>
+                <p>お客様の課題解決実績をご紹介します</p>
+            </div>
+            <div class="cases-grid">
+
+                <div class="case-card">
+                    <div class="case-images">
+                        <div class="case-img-wrap">
+                            <img src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=400&q=80" alt="施工前">
+                            <span class="case-img-label">Before</span>
+                        </div>
+                        <div class="case-img-wrap">
+                            <img src="https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=400&q=80" alt="施工後">
+                            <span class="case-img-label">After</span>
+                        </div>
+                    </div>
+                    <div class="case-content">
+                        <span class="case-category">カッティングツール</span>
+                        <h3>自動車部品メーカーA社様</h3>
+                        <p class="case-description">高精度エンドミルの導入により、加工時間を30%短縮。製品品質の向上と生産性アップを同時に実現しました。</p>
+                    </div>
+                </div>
+
+                <div class="case-card">
+                    <div class="case-images">
+                        <div class="case-img-wrap">
+                            <img src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=400&q=80" alt="加工前">
+                            <span class="case-img-label">Before</span>
+                        </div>
+                        <div class="case-img-wrap">
+                            <img src="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=400&q=80" alt="加工後">
+                            <span class="case-img-label">After</span>
+                        </div>
+                    </div>
+                    <div class="case-content">
+                        <span class="case-category">カッティングツール</span>
+                        <h3>精密機械メーカーB社様</h3>
+                        <p class="case-description">難削材加工用特殊バイトの提案により、工具寿命が2倍に延長。コスト削減に大きく貢献しました。</p>
+                    </div>
+                </div>
+
+                <div class="case-card">
+                    <div class="case-images">
+                        <div class="case-img-wrap">
+                            <img src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=400&q=80" alt="導入前">
+                            <span class="case-img-label">Before</span>
+                        </div>
+                        <div class="case-img-wrap">
+                            <img src="https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=400&q=80" alt="導入後">
+                            <span class="case-img-label">After</span>
+                        </div>
+                    </div>
+                    <div class="case-content">
+                        <span class="case-category">カッティングツール</span>
+                        <h3>金型製造C社様</h3>
+                        <p class="case-description">高硬度材対応ドリルの採用で、加工精度が向上。製品不良率を大幅に削減できました。</p>
+                    </div>
+                </div>
+
+                <div class="case-card">
+                    <div class="case-images">
+                        <div class="case-img-wrap">
+                            <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&q=80" alt="設置前">
+                            <span class="case-img-label">Before</span>
+                        </div>
+                        <div class="case-img-wrap">
+                            <img src="https://images.unsplash.com/photo-1555664424-778a1e5e1b48?w=400&q=80" alt="稼働中">
+                            <span class="case-img-label">After</span>
+                        </div>
+                    </div>
+                    <div class="case-content">
+                        <span class="case-category">レーザー関連</span>
+                        <h3>電子部品メーカーD社様</h3>
+                        <p class="case-description">レーザーマーカー導入により、マーキング作業の自動化を実現。作業効率が飛躍的に向上しました。</p>
+                    </div>
+                </div>
+
+                <div class="case-card">
+                    <div class="case-images">
+                        <div class="case-img-wrap">
+                            <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=400&q=80" alt="従来機">
+                            <span class="case-img-label">Before</span>
+                        </div>
+                        <div class="case-img-wrap">
+                            <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=400&q=80" alt="新型機">
+                            <span class="case-img-label">After</span>
+                        </div>
+                    </div>
+                    <div class="case-content">
+                        <span class="case-category">レーザー関連</span>
+                        <h3>金属加工E社様</h3>
+                        <p class="case-description">レーザー加工機の更新により、複雑形状の加工時間が半減。受注拡大につながりました。</p>
+                    </div>
+                </div>
+
+                <div class="case-card">
+                    <div class="case-images">
+                        <div class="case-img-wrap">
+                            <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80" alt="導入前">
+                            <span class="case-img-label">Before</span>
+                        </div>
+                        <div class="case-img-wrap">
+                            <img src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=400&q=80" alt="導入後">
+                            <span class="case-img-label">After</span>
+                        </div>
+                    </div>
+                    <div class="case-content">
+                        <span class="case-category">水処理関連</span>
+                        <h3>化学メーカーF社様</h3>
+                        <p class="case-description">排水処理設備の刷新により、排水基準を大幅にクリア。環境負荷低減とランニングコスト削減を両立しました。</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== Technical Resources ===== -->
+    <section class="resources" id="resources">
+        <div class="container">
+            <div class="section-title">
+                <h2>技術資料</h2>
+                <p>製品カタログ・技術データをダウンロードいただけます</p>
+            </div>
+            <div class="resources-grid">
+                <div class="resource-card">
+                    <div class="resource-icon">📄</div>
+                    <h3>カッティングツール総合カタログ</h3>
+                    <p>エンドミル・ドリル・タップ等、全製品ラインナップをご確認いただけます</p>
+                    <a href="#contact" class="download-link">📥 ダウンロード</a>
+                </div>
+                <div class="resource-card">
+                    <div class="resource-icon">🔬</div>
+                    <h3>レーザー加工機 技術仕様書</h3>
+                    <p>各機種の詳細スペック・加工サンプルデータをまとめた資料です</p>
+                    <a href="#contact" class="download-link">📥 ダウンロード</a>
+                </div>
+                <div class="resource-card">
+                    <div class="resource-icon">💧</div>
+                    <h3>水処理システム 導入ガイド</h3>
+                    <p>設備選定から設置・メンテナンスまでわかりやすく解説します</p>
+                    <a href="#contact" class="download-link">📥 ダウンロード</a>
+                </div>
+                <div class="resource-card">
+                    <div class="resource-icon">📊</div>
+                    <h3>導入事例集（PDF）</h3>
+                    <p>各業種・用途別の導入実績を詳細データとともにご紹介します</p>
+                    <a href="#contact" class="download-link">📥 ダウンロード</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== Company ===== -->
+    <section class="company" id="company">
+        <div class="container">
+            <div class="section-title">
+                <h2>会社情報</h2>
+                <p>Company Profile</p>
+            </div>
+            <div class="company-inner">
+                <table class="company-table">
+                    <tr>
+                        <th>会社名</th>
+                        <td>宝産業株式会社</td>
+                    </tr>
+                    <tr>
+                        <th>設立</th>
+                        <td>1985年4月</td>
+                    </tr>
+                    <tr>
+                        <th>資本金</th>
+                        <td>3,000万円</td>
+                    </tr>
+                    <tr>
+                        <th>代表者</th>
+                        <td>代表取締役社長　山田 太郎</td>
+                    </tr>
+                    <tr>
+                        <th>所在地</th>
+                        <td>〒000-0000　大阪府大阪市○○区○○町0-0-0</td>
+                    </tr>
+                    <tr>
+                        <th>TEL / FAX</th>
+                        <td>06-XXXX-XXXX ／ 06-XXXX-XXXX</td>
+                    </tr>
+                    <tr>
+                        <th>営業時間</th>
+                        <td>月〜金 9:00〜18:00（土日祝日を除く）</td>
+                    </tr>
+                    <tr>
+                        <th>事業内容</th>
+                        <td>カッティングツール、レーザー関連製品、水処理関連製品の販売・技術サポート</td>
+                    </tr>
+                    <tr>
+                        <th>取引メーカー</th>
+                        <td>国内外50社以上の優良メーカーと提携</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== Contact ===== -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>お問い合わせ</h2>
+                <p>製品・サービスに関するご相談はお気軽にどうぞ</p>
+            </div>
+            <div class="contact-content">
+
+                <div class="contact-methods">
+                    <div class="contact-method">
+                        <h3>📞 電話でのお問い合わせ</h3>
+                        <p>担当者が直接ご対応いたします</p>
+                        <div class="contact-info">06-XXXX-XXXX</div>
+                        <p style="margin-top:12px;font-size:0.9rem;opacity:0.8;">受付時間：月〜金 9:00〜18:00</p>
+                    </div>
+                    <div class="contact-method">
+                        <h3>✉️ メールでのお問い合わせ</h3>
+                        <p>24時間受け付けております</p>
+                        <div class="contact-info"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="543d3a323b1420353f3526357927353a332d3b7a373b7a3e24">[email&#160;protected]</a></div>
+                        <p style="margin-top:12px;font-size:0.9rem;opacity:0.8;">通常2営業日以内に返信いたします</p>
+                    </div>
+                </div>
+
+                <!-- ===== Contact Form ===== -->
+                <div class="contact-form-section">
+                    <h3>お問い合わせフォーム</h3>
+                    <form id="contactForm" novalidate>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="company">会社名<span class="required">※必須</span></label>
+                                <input type="text" id="company" name="company" placeholder="宝産業株式会社" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="name">担当者名<span class="required">※必須</span></label>
+                                <input type="text" id="name" name="name" placeholder="山田 太郎" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="tel">電話番号</label>
+                                <input type="tel" id="tel" name="tel" placeholder="06-XXXX-XXXX">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">メールアドレス<span class="required">※必須</span></label>
+                                <input type="email" id="email" name="email" placeholder="info@example.co.jp" required>
+                            </div>
+                            <div class="form-group full-width">
+                                <label for="category">お問い合わせ製品カテゴリ</label>
+                                <select id="category" name="category">
+                                    <option value="">選択してください</option>
+                                    <option value="cutting">カッティングツール</option>
+                                    <option value="laser">レーザー関連</option>
+                                    <option value="water">水処理関連</option>
+                                    <option value="other">その他</option>
+                                </select>
+                            </div>
+                            <div class="form-group full-width">
+                                <label for="message">お問い合わせ内容<span class="required">※必須</span></label>
+                                <textarea id="message" name="message" placeholder="お問い合わせ内容をご記入ください" required></textarea>
+                            </div>
+                        </div>
+                        <div class="form-submit">
+                            <button type="submit" class="btn btn-primary">送信する</button>
+                        </div>
+                    </form>
+                    <div class="form-sent" id="formSent">
+                        ✅ お問い合わせを受け付けました。担当者よりご連絡いたします。
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== Footer ===== -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section footer-company">
+                <h4>宝産業株式会社</h4>
+                <p>カッティングツール・レーザー関連・水処理関連の専門商社として、製造業のお客様をトータルサポートいたします。</p>
+                <p>〒530-0044<br>大阪市北区東天満2丁目6番5号<br>I・S南森町ビル5F</p>
+                <p>TEL: 06-6353-2341（代）</p>
+            </div>
+            <div class="footer-section">
+                <h4>製品情報</h4>
+                <ul>
+                    <li><a href="宝産業_カッティングツール.html">カッティングツール</a></li>
+                    <li><a href="宝産業_製品拠点.html">レーザー関連</a></li>
+                    <li><a href="宝産業_製品拠点.html">水処理関連</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>サービス</h4>
+                <ul>
+                    <li><a href="#cases">導入事例</a></li>
+                    <li><a href="#resources">技術資料</a></li>
+                    <li><a href="宝産業_製品拠点.html#location">拠点紹介</a></li>
+                    <li><a href="#contact">お問い合わせ</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>会社情報</h4>
+                <ul>
+                    <li><a href="宝産業_会社詳細.html">会社概要</a></li>
+                    <li><a href="宝産業_会社詳細.html#history">沿革</a></li>
+                    <li><a href="宝産業_会社詳細.html#location">拠点紹介</a></li>
+                    <li><a href="宝産業_会社詳細.html#qa">よくある質問</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 宝産業株式会社 All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- ===== JavaScript ===== -->
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        // ハンバーガーメニュー
+        const menuToggle = document.getElementById('menuToggle');
+        const mainNav = document.getElementById('mainNav');
+
+        menuToggle.addEventListener('click', () => {
+            mainNav.classList.toggle('active');
+            menuToggle.textContent = mainNav.classList.contains('active') ? '✕' : '☰';
+            menuToggle.setAttribute('aria-label', mainNav.classList.contains('active') ? 'メニューを閉じる' : 'メニューを開く');
+        });
+
+        // ナビリンクをクリックしたらメニューを閉じる（モバイル）
+        mainNav.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mainNav.classList.remove('active');
+                menuToggle.textContent = '☰';
+            });
+        });
+
+        // お問い合わせフォーム（デモ送信）
+        const contactForm = document.getElementById('contactForm');
+        const formSent = document.getElementById('formSent');
+
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            // 必須チェック
+            const required = contactForm.querySelectorAll('[required]');
+            let valid = true;
+            required.forEach(field => {
+                if (!field.value.trim()) {
+                    valid = false;
+                    field.style.borderColor = '#e74c3c';
+                    field.addEventListener('input', () => {
+                        field.style.borderColor = '';
+                    }, { once: true });
+                }
+            });
+
+            if (!valid) {
+                alert('必須項目をご入力ください。');
+        

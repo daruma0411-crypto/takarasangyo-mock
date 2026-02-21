@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>会社情報 | 宝産業株式会社</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #002D5A;
+            --accent: #FF6B00;
+            --bg-light: #F8FAFC;
+            --white: #ffffff;
+            --text-main: #333;
+            --text-sub: #666;
+            --border: #e2e8f0;
+            --header-h: 64px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            color: var(--text-main);
+            line-height: 1.8;
+        }
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+        section { padding: 100px 0; }
+
+        /* ======== Section Title ======== */
+        .section-title { text-align: center; margin-bottom: 60px; }
+        .section-title .en {
+            color: var(--accent);
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.12em;
+            display: block;
+            margin-bottom: 8px;
+        }
+        .section-title h2 {
+            font-size: 2rem;
+            color: var(--primary);
+            font-weight: 900;
+        }
+
+        /* ======== Header ======== */
+        header {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border);
+            height: var(--header-h);
+        }
+
+        .nav-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: var(--header-h);
+        }
+
+        .logo {
+            font-weight: 900;
+            color: var(--primary);
+            font-size: 1.15rem;
+            text-decoration: none;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 28px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 0.875rem;
+            position: relative;
+            padding-bottom: 3px;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            left: 0; bottom: 0;
+            width: 0; height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after { width: 100%; }
+
+        /* ハンバーガー */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        .menu-toggle span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--primary);
+            transition: all 0.3s ease;
+            transform-origin: center;
+        }
+
+        .menu-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .menu-toggle.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+        .menu-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+        /* モバイルメニュー */
+        nav.mobile-open {
+            display: flex;
+        }
+
+        /* ======== Hero ======== */
+        .hero {
+            height: 65vh;
+            min-height: 400px;
+            padding-top: var(--header-h);
+            background:
+                linear-gradient(rgba(0,45,90,0.78), rgba(0,45,90,0.78)),
+                url('https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=1600&q=80')
+                center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+        }
+
+        .hero-content h1 {
+            font-size: clamp(1.8rem, 4vw, 3rem);
+            font-weight: 900;
+            line-height: 1.4;
+            margin-bottom: 16px;
+        }
+
+        .hero-content p {
+            font-size: 1rem;
+            opacity: 0.85;
+            max-width: 480px;
+            margin: 0 auto;
+        }
+
+        /* ======== パンくず ======== */
+        .breadcrumb {
+            background: var(--bg-light);
+            border-bottom: 1px solid var(--border);
+            padding: 12px 0;
+            font-size: 0.8rem;
+            color: var(--text-sub);
+        }
+
+        .breadcrumb a { color: var(--primary); text-decoration: none; font-weight: 700; }
+        .breadcrumb a:hover { text-decoration: underline; }
+        .breadcrumb span { margin: 0 8px; }
+
+        /* ======== Back link ======== */
+        .back-link-wrap { padding: 40px 0 0; text-align: center; }
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--primary);
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 0.9rem;
+            border: 2px solid var(--primary);
+            padding: 10px 24px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        .back-link:hover { background: var(--primary); color: white; }
+
+        /* ======== Company Profile Table ======== */
+        .profile-section { background: var(--white); }
+
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .info-table tr { border-bottom: 1px solid var(--border); }
+        .info-table tr:last-child { border-bottom: none; }
+
+        .info-table th {
+            width: 28%;
+            padding: 20px 24px;
+            color: var(--white);
+            font-weight: 700;
+            background: var(--primary);
+            vertical-align: top;
+            font-size: 0.9375rem;
+        }
+
+        .info-table td {
+            padding: 20px 24px;
+            background: var(--white);
+            font-size: 0.9375rem;
+            line-height: 1.8;
+        }
+
+        .info-table tr:nth-child(even) td { background: #fafbfd; }
+
+        /* ======== History Timeline ======== */
+        .history-section { background: var(--bg-light); }
+
+        .timeline {
+            list-style: none;
+            position: relative;
+            padding-left: 40px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 5px;
+            top: 8px;
+            bottom: 8px;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--primary), var(--accent));
+        }
+
+        .timeline li {
+            position: relative;
+            margin-bottom: 32px;
+            padding: 20px 24px;
+            background: var(--white);
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .timeline li:hover {
+            transform: translateX(4px);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+        }
+
+        .timeline li:last-child { margin-bottom: 0; }
+
+        .timeline li::before {
+            content: '';
+            position: absolute;
+            left: -37px;
+            top: 24px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--accent);
+            border: 2px solid var(--white);
+            box-shadow: 0 0 0 2px var(--accent);
+        }
+
+        .timeline .year {
+            font-weight: 900;
+            color: var(--primary);
+            font-size: 1rem;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .timeline .event {
+            color: var(--text-main);
+            font-size: 0.9375rem;
+            line-height: 1.7;
+        }
+
+        /* ======== Locations ======== */
+        .location-section { background: var(--white); }
+
+        .location-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .loc-card {
+            background: var(--bg-light);
+            padding: 28px 24px;
+            border-radius: 8px;
+            border-top: 4px solid var(--primary);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .loc-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+        }
+
+        .loc-card .badge {
+            display: inline-block;
+            background: var(--primary);
+            color: var(--white);
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 20px;
+            margin-bottom: 12px;
+        }
+
+        .loc-card h3 {
+            color: var(--primary);
+            font-size: 1.125rem;
+            font-weight: 900;
+            margin-bottom: 10px;
+        }
+
+        .loc-card p {
+            font-size: 0.9rem;
+            color: var(--text-sub);
+            line-height: 1.7;
+        }
+
+        .loc-card .map-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            margin-top: 14px;
+            color: var(--accent);
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-decoration: none;
+        }
+
+        .loc-card .map-link:hover { text-decoration: underline; }
+
+        /* ======== FAQ Accordion ======== */
+        .faq-section { background: var(--bg-light); }
+
+        .faq-list { max-width: 800px; margin: 0 auto; }
+
+        .qa-item {
+            margin-bottom: 12px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+        }
+
+        .qa-q {
+            background: var(--primary);
+            color: white;
+            padding: 18px 24px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            font-size: 0.9375rem;
+            user-select: none;
+            transition: background 0.2s ease;
+        }
+
+        .qa-q:hover { background: #003d7a; }
+
+        .qa-q .q-icon {
+            flex-shrink: 0;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            font-weight: 900;
+            transition: transform 0.35s ease;
+        }
+
+        .qa-item.open .qa-q .q-icon {
+            transform: rotate(45deg);
+        }
+
+        .qa-a {
+            padding: 0 24px;
+            background: white;
+            font-size: 0.9375rem;
+            line-height: 1.8;
+            color: var(--text-main);
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.4s ease;
+        }
+
+        .qa-item.open .qa-a {
+            max-height: 300px;
+            padding: 20px 24px;
+        }
+
+        /* ======== Footer ======== */
+        footer {
+            background: var(--primary);
+            color: rgba(255,255,255,0.85);
+            padding: 48px 0 24px;
+        }
+
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 32px;
+            margin-bottom: 36px;
+        }
+
+        .footer-logo {
+            font-weight: 900;
+            font-size: 1.1rem;
+            color: white;
+            margin-bottom: 8px;
+        }
+
+        .footer-info { font-size: 0.85rem; line-height: 1.9; }
+
+        .footer-links { list-style: none; }
+        .footer-links li { margin-bottom: 8px; }
+        .footer-links a {
+            color: rgba(255,255,255,0.75);
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: color 0.2s;
+        }
+        .footer-links a:hover { color: white; }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.15);
+            padding-top: 20px;
+            text-align: center;
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.5);
+        }
+
+        /* ======== Responsive ======== */
+        @media (max-width: 768px) {
+            :root { --header-h: 56px; }
+
+            section { padding: 64px 0; }
+
+            /* nav */
+            .menu-toggle { display: flex; }
+
+            nav {
+                display: none;
+                position: fixed;
+                top: var(--header-h);
+                left: 0; right: 0;
+                background: rgba(255,255,255,0.98);
+                border-bottom: 1px solid var(--border);
+                padding: 16px 24px 24px;
+                box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 0;
+            }
+
+            nav ul li {
+                border-bottom: 1px solid var(--border);
+            }
+
+            nav a {
+                display: block;
+                padding: 14px 0;
+                font-size: 1rem;
+            }
+
+            nav a::after { display: none; }
+
+            /* hero */
+            .hero { height: 55vh; min-height: 320px; }
+            .hero-content h1 { font-size: 1.6rem; }
+
+            /* table */
+            .info-table th, .info-table td { padding: 14px 16px; }
+            .info-table th { width: 35%; font-size: 0.85rem; }
+            .info-table td { font-size: 0.875rem; }
+
+            /* timeline */
+            .timeline { padding-left: 28px; }
+            .timeline li { padding: 16px 18px; }
+            .timeline li::before { left: -26px; }
+
+            /* location */
+            .location-grid { grid-template-columns: 1fr; gap: 16px; }
+
+            /* footer */
+            .footer-inner { flex-direction: column; gap: 24px; }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .location-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        /* ======== scroll-in animation ======== */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+<!-- ===== Header ===== -->
+<header>
+    <div class="container nav-inner">
+        <a href="宝産業株式会社_improved.html" class="logo">宝産業株式会社</a>
+        <button class="menu-toggle" id="menuToggle" aria-label="メニューを開く">
+            <span></span><span></span><span></span>
+        </button>
+        <nav id="mainNav">
+            <ul>
+                <li><a href="宝産業株式会社_improved.html">トップ</a></li>
+                <li><a href="宝産業_製品拠点.html">製品情報</a></li>
+                <li><a href="宝産業_カッティングツール.html">カッティングツール</a></li>
+                <li><a href="宝産業_製品拠点.html#location">拠点紹介</a></li>
+                <li><a href="#profile" class="active">会社情報</a></li>
+                <li><a href="宝産業株式会社_improved.html#contact">お問い合わせ</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<!-- ===== Hero ===== -->
+<section class="hero">
+    <div class="hero-content">
+        <h1>ものづくりの未来を<br>技術と信頼でつなぐ</h1>
+        <p>1939年創業。製造業のあらゆる現場に寄り添い続けてきた専門商社です。</p>
+    </div>
+</section>
+
+<!-- ===== パンくず ===== -->
+<div class="breadcrumb">
+    <div class="container">
+        <a href="宝産業株式会社_improved.html">トップページ</a>
+        <span>›</span>
+        会社情報
+    </div>
+</div>
+
+<!-- ===== 会社概要 ===== -->
+<section id="profile" class="profile-section">
+    <div class="container">
+        <div class="section-title fade-in">
+            <span class="en">Corporate Profile</span>
+            <h2>会社概要</h2>
+        </div>
+        <table class="info-table fade-in">
+            <tr>
+                <th>商号</th>
+                <td>宝産業株式会社</td>
+            </tr>
+            <tr>
+                <th>設立</th>
+                <td>1939（昭和14）年5月10日</td>
+            </tr>
+            <tr>
+                <th>資本金</th>
+                <td>4千万円</td>
+            </tr>
+            <tr>
+                <th>株主</th>
+                <td>住友電気工業株式会社</td>
+            </tr>
+            <tr>
+                <th>本社所在地</th>
+                <td>〒530-0044 大阪市北区東天満2丁目6番5号 I・S南森町ビル5F</td>
+            </tr>
+            <tr>
+                <th>事業内容</th>
+                <td>加工用工具・保持具・加工周辺機器・レーザー用光学部品の販売、水処理装置の設計・施工 ほか</td>
+            </tr>
+            <tr>
+                <th>取引メーカー</th>
+                <td>住友電気工業株式会社をはじめ、国内外50社以上の優良メーカーと提携</td>
+            </tr>
+            <tr>
+                <th>営業時間</th>
+                <td>月〜金 9:00〜18:00（土日祝日を除く）</td>
+            </tr>
+        </table>
+        <div class="back-link-wrap">
+            <a href="宝産業株式会社_improved.html#contact" class="back-link">
+                ← トップページのお問い合わせへ
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ===== 沿革 ===== -->
+<section id="history" class="history-section">
+    <div class="container">
+        <div class="section-title fade-in">
+            <span class="en">History</span>
+            <h2>沿革</h2>
+        </div>
+        <ul class="timeline">
+            <li class="fade-in">
+                <span class="year">1939年（昭和14年）</span>
+                <span class="event">兵庫県尼崎市において、伸銅品・非鉄金属・合金鉄の販売を目的に創業。</span>
+            </li>
+            <li class="fade-in">
+                <span class="year">1946年（昭和21年）</span>
+                <span class="event">本社を大阪市に移転。戦後復興の製造業需要に応えるべく事業を拡大。</span>
+            </li>
+            <li class="fade-in">
+                <span class="year">1953年（昭和28年）</span>
+                <span class="event">住友電気工業株式会社の特約店として、超硬合金工具・電線の販売を開始。</span>
+            </li>
+            <li class="fade-in">
+                <span class="year">1973年（昭和48年）</span>
+                <span class="event">建設業者登録を取得（管工事業・機械器具設置工事業）。水処理事業に本格参入。</span>
+            </li>
+            <li class="fade-in">
+                <span class="year">2006年（平成18年）</span>
+                <span class="event">本社を現在地（大阪市北区東天満）に移転。業務効率化・顧客対応力を強化。</span>
+            </li>
+            <li class="fade-in">
+                <span class="year">2020年（令和2年）</span>
+                <span class="event">ウェブサイトリニューアル。技術提案型商社としてのブランド体制を強化。</span>
+            </li>
+        </ul>
+    </div>
+</section>
+
+<!-- ===== 拠点紹介 ===== -->
+<section id="location" class="location-section">
+    <div class="container">
+        <div class="section-title fade-in">
+            <span class="en">Locations</span>
+            <h2>拠点紹介</h2>
+        </div>
+        <div class="location-grid">
+            <div class="loc-card fade-in">
+                <span class="badge">本社</span>
+                <h3>大阪本社</h3>
+                <p>〒530-0044<br>大阪市北区東天満2丁目6番5号<br>I・S南森町ビル5F<br><br>TEL: 06-XXXX-XXXX</p>
+                <a href="https://maps.google.com/?q=大阪市北区東天満2-6-5" target="_blank" rel="noopener" class="map-link">
+                    📍 Google Mapで見る
+                </a>
+            </div>
+            <div class="loc-card fade-in">
+                <span class="badge">営業所</span>
+                <h3>名古屋営業所</h3>
+                <p>愛知県豊田市<br><br>中京圏の製造業・自動車関連の現場を強力にサポート。トヨタグループをはじめとする製造拠点に密着したサービスを提供しています。</p>
+                <a href="https://maps.google.com/?q=愛知県豊田市" target="_blank" rel="noopener" class="map-link">
+                    📍 Google Mapで見る
+                </a>
+            </div>
+            <div class="loc-card fade-in">
+                <span class="badge">営業所</span>
+                <h3>新居浜営業所</h3>
+                <p>愛媛県新居浜市<br><br>四国エリアの化学・プラント・製造業を幅広く支援。住友グループをはじめとする地域産業のパートナーとして活動しています。</p>
+                <a href="https://maps.google.com/?q=愛媛県新居浜市" target="_blank" rel="noopener" class="map-link">
+                    📍 Google Mapで見る
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== FAQ ===== -->
+<section id="qa" class="faq-section">
+    <div class="container">
+        <div class="section-title fade-in">
+            <span class="en">FAQ</span>
+            <h2>よくある質問</h2>
+        </div>
+        <div class="faq-list">
+
+            <div class="qa-item fade-in">
+                <div class="qa-q">
+                    <span>Q. 取り扱いメーカーはどこですか？</span>
+                    <span class="q-icon">＋</span>
+                </div>
+                <div class="qa-a">
+                    住友電気工業株式会社を筆頭に、国内外の主要な切削工具・レーザー部品・水処理関連メーカー製品を幅広く取り扱っております。具体的なメーカー・品番についてはお気軽にお問い合わせください。
+                </div>
+            </div>
+
+            <div class="qa-item fade-in">
+                <div class="qa-q">
+                    <span>Q. 工具の選定だけでなく、加工相談も可能ですか？</span>
+                    <span class="q-icon">＋</span>
+                </div>
+                <div class="qa-a">
+                    はい、可能です。当社の専門スタッフがお客様の加工現場に伺い、最適な工具の選定や加工条件の改善をご提案します。難削材・特殊形状など、難しいご相談もお任せください。
+                </div>
+            </div>
+
+            <div class="qa-item fade-in">
+                <div class="qa-q">
+                    <span>Q. 水処理設備のメンテナンスのみを依頼できますか？</span>
+                    <span class="q-icon">＋</span>
+                </div>
+                <div class="qa-a">
+                    はい、承っております。装置の設置だけでなく、消耗品の補充・定期メンテナンス・水質の改善提案までトータルでサポートいたします。既存設備の診断もお気軽にご相談ください。
+                </div>
+            </div>
+
+            <div class="qa-item fade-in">
+                <div class="qa-q">
+                    <span>Q. 小口注文・急ぎの対応はできますか？</span>
+                    <span class="q-icon">＋</span>
+                </div>
+                <div class="qa-a">
+                    はい、小口のご注文にも柔軟に対応しております。また急ぎの案件については、在庫状況を確認の上できる限り迅速にご対応いたします。まずはお電話またはフォームにてご連絡ください。
+                </div>
+            </div>
+
+            <div class="qa-item fade-in">
+                <div class="qa-q">
+                    <span>Q. カタログ・技術資料の取り寄せはできますか？</span>
+                    <span class="q-icon">＋</span>
+                </div>
+                <div class="qa-a">
+                    はい、各メーカーの最新カタログや技術資料をご提供できます。トップページの技術資料ダウンロードセクション、またはお問い合わせフォームよりご請求ください。
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ===== Footer ===== -->
+<footer>
+    <div class="container">
+        <div class="footer-inner">
+            <div>
+                <div class="footer-logo">宝産業株式会社</div>
+                <div class="footer-info">
+                    〒530-0044 大阪市北区東天満2丁目6番5号<br>
+                    I・S南森町ビル5F<br>
+                    TEL: 06-XXXX-XXXX<br>
+                    受付：月〜金 9:00〜18:00
+                </div>
+            </div>
+            <div>
+                <ul class="footer-links">
+                    <li><a href="宝産業株式会社_improved.html">トップページ</a></li>
+                    <li><a href="宝産業_製品拠点.html">製品情報</a></li>
+                    <li><a href="宝産業_カッティングツール.html">カッティングツール詳細</a></li>
+                    <li><a href="宝産業_製品拠点.html#location">拠点紹介</a></li>
+                    <li><a href="宝産業株式会社_improved.html#contact">お問い合わせ</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 TAKARA-SANGYO CO., LTD. All Rights Reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<!-- ===== JavaScript ===== -->
+<script>
+    // ---- ハンバーガーメニュー ----
+    const toggle = document.getElementById('menuToggle');
+    const nav    = document.getElementById('mainNav');
+
+    toggle.addEventListener('click', () => {
+        const isOpen = nav.classList.toggle('mobile-open');
+        toggle.classList.toggle('open', isOpen);
+        toggle.setAttribute('aria-label', isOpen ? 'メニューを閉じる' : 'メニューを開く');
+    });
+
+    // ナビリンク押したら閉じる
+    nav.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', () => {
+            nav.classList.remove('mobile-open');
+            toggle.classList.remove('open');
+        });
+    });
+
+    // ---- FAQ アコーディオン ----
+    document.querySelectorAll('.qa-q').forEach(q => {
+        q.addEventListener('click', () => {
+            const item = q.closest('.qa-item');
+            const isOpen = item.classList.contains('open');
+
+            // 他を全部閉じる
+            document.querySelectorAll('.qa-item.open').forEach(el => {
+                el.classList.remove('open');
+            });
+
+            // クリックしたものをトグル
+            if (!isOpen) item.classList.add('open');
+        });
+    });
+
+    // ---- スクロールアニメーション ----
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, i) => {
+            if (entry.isIntersecting) {
+                // 少し遅延をつけて順番にフェードイン
+                setTimeout(() => {
+                    entry.target.classList.add('visible');
+                }, i * 80);
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
